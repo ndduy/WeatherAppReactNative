@@ -15,6 +15,11 @@ class Api {
     const API_YAHOO_URL = API_YAHOO_QUERY + `text="${city}")&format=json`;
     return fetch(API_YAHOO_URL);
   }
+  static fetchWeatherLatLong(lat: number, long: number) {
+    const API_YAHOO_URL =
+      API_YAHOO_QUERY + `text="(${lat},${long})")&format=json`;
+    return fetch(API_YAHOO_URL);
+  }
 }
 
 export default Api;

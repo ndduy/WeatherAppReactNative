@@ -50,6 +50,26 @@ export function loadWeather(city: String) {
   };
 }
 
+export function loadWeatherLatLong(lat: number, long: number) {
+  // make async call to api, handle promise, dispatch action when promise is resolved
+  return function(dispatch) {
+    dispatch(itemsIsLoading(true));
+    return Api.fetchWeatherLatLong(lat, long)
+      .then(weather => {
+        return weather.json();
+      })
+      .then(weather => {
+        console.log(weather);
+        dispatch(itemsIsLoading(false));
+        dispatch(loadWeatherSuccess(weather));
+      })
+      .catch(error => {
+        dispatch(itemsHasErrored(true));
+        throw error;
+      });
+  };
+}
+
 /*
 **
 * Load a weather list from local data

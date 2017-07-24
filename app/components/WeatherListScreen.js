@@ -63,6 +63,12 @@ WeatherListScreen.navigationOptions = ({ navigation }) => {
         title="Add City"
         onPress={() => navigation.navigate("WeatherSearch")}
       />
+    ),
+    headerLeft: (
+      <Button
+        title="My Location"
+        onPress={() => navigation.navigate("WeatherDetailScreen")}
+      />
     )
   };
 };

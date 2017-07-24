@@ -1,52 +1,84 @@
 import React, { Component } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
+import WeatherForecastItem from "./WeatherForecastItem";
 
 class WeatherList extends Component {
-  renderWeather(cityData, i) {
+  renderHeader(cityData) {
     if (cityData.query === undefined) {
       return <View />;
     }
-    const temps = cityData.query.results.channel.item.forecast.map(
-      weather => weather.high
-    );
-    const lows = cityData.query.results.channel.item.forecast.map(
-      weather => weather.low
-    );
-    const forecast = cityData.query.results.channel.item.forecast.map(
-      weather => weather.day + " - " + weather.text
-    );
+
+    const city = cityData.query.results.channel.location.city;
+    const country = cityData.query.results.channel.location.country;
+    const temp = cityData.query.results.channel.item.condition.temp;
+    const date = cityData.query.results.channel.item.condition.date;
     const lat = cityData.query.results.channel.item.lat;
     const lon = cityData.query.results.channel.item.long;
-    console.log(temps);
-    console.log(lows);
-    console.log(forecast);
-    console.log(lat, lon);
 
     return (
       <View>
         <Text>
-          {temps[0]}
+          City: {city}
         </Text>
         <Text>
-          {lows[0]}
+          Country: {country}
         </Text>
         <Text>
-          {forecast[0]}
+          Temperature: {temp}
         </Text>
         <Text>
-          {lat}
+          Date: {date}
         </Text>
         <Text>
-          {lon}
+          Latitude: {lat}
+        </Text>
+        <Text>
+          Longitude: {lon}
         </Text>
       </View>
     );
   }
+
+  renderWeather(cityData, i) {
+    if (cityData.query === undefined) {
+      return <View />;
+    }
+
+    const forecast = cityData.query.results.channel.item.forecast;
+
+    return forecast.map((item, index) => {
+      if (index === 0) {
+        return null;
+      }
+
+      if (index < forecast.length - 1) {
+        var separator = {
+          borderColor: "#F4F4F4",
+          borderBottomWidth: StyleSheet.hairlineWidth
+        };
+      }
+
+      return (
+        <WeatherForecastItem
+          key={item.day}
+          index={index}
+          {...item}
+          separator={separator}
+        />
+      );
+    });
+  }
+
   render() {
     return (
       <View>
-        {this.renderWeather(this.props.weather)}
+        <View>
+          {this.renderHeader(this.props.weather)}
+        </View>
+        <View>
+          {this.renderWeather(this.props.weather)}
+        </View>
       </View>
     );
   }
