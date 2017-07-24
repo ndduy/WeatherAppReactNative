@@ -9,16 +9,10 @@ import WeatherListScreen from "../components/WeatherListScreen";
 import WeatherDetailScreen from "../components/WeatherDetailScreen";
 import WeatherSearch from "../components/WeatherSearch";
 
-export const WeatherStack = StackNavigator(
-  {
-    WeatherListScreen: { screen: WeatherListScreen },
-    WeatherDetailScreen: { screen: WeatherDetailScreen }
-  },
-  {
-    mode: "modal",
-    headerMode: "none"
-  }
-);
+export const WeatherStack = StackNavigator({
+  WeatherListScreen: { screen: WeatherListScreen },
+  WeatherDetailScreen: { screen: WeatherDetailScreen }
+});
 
 export const AppNavigator = StackNavigator(
   {

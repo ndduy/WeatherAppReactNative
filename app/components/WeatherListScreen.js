@@ -12,7 +12,7 @@ class WeatherListScreen extends React.Component {
   }
 
   onLearnMore = weather => {
-    this.props.navigation.navigate("WeatherDetailScreen", { ...weather });
+    this.props.navigation.navigate("WeatherDetailScreen", { weather: weather });
   };
 
   render() {
@@ -55,8 +55,16 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-WeatherListScreen.navigationOptions = {
-  title: "Weather List"
+WeatherListScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title: "Weather List",
+    headerRight: (
+      <Button
+        title="Add City"
+        onPress={() => navigation.navigate("WeatherSearch")}
+      />
+    )
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeatherListScreen);
