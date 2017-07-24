@@ -8,7 +8,8 @@ import WeatherItem from "./WeatherItem";
 
 class WeatherDetailScreen extends React.Component {
   componentDidMount() {
-    this.props.loadWeather("Moscow");
+    const { params } = this.props.navigation.state;
+    this.props.loadWeather(params.weather);
   }
 
   render() {

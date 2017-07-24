@@ -4,6 +4,7 @@ import { Button, TextInput, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { addItemToList } from "../ducks/weather/actions";
 import { connect } from "react-redux";
+import { NavigationActions } from "react-navigation";
 
 class WeatherSearch extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class WeatherSearch extends React.Component {
 
   onPressLearnMore = () => {
     this.props.addItemToList(this.state.text);
+    this.props.navigation.dispatch(NavigationActions.back());
   };
 
   render() {
